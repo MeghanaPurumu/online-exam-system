@@ -1,0 +1,27 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient definitions -->
+  <defs>
+    <linearGradient id="orangeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff5722;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="24" cy="24" r="22" fill="url(#orangeGradient)" opacity="0.2"/>
+  
+  <!-- X shape -->
+  <text x="24" y="32" font-size="28" font-weight="bold" font-family="Arial, sans-serif" 
+        fill="url(#orangeGradient)" text-anchor="middle">
+    X
+  </text>
+  
+  <!-- M shape -->
+  <text x="24" y="42" font-size="12" font-weight="600" font-family="Arial, sans-serif" 
+        fill="#ff6b35" text-anchor="middle">
+    MAT
+  </text>
+  
+  <!-- Accent accent dot -->
+  <circle cx="36" cy="18" r="3" fill="#ff6b35"/>
+</svg>
