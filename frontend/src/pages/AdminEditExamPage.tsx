@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
+=======
+import React, { useEffect, useState } from "react";
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../api/client";
 
+<<<<<<< HEAD
 interface QuestionInput {
   text: string;
   option_a: string;
@@ -39,6 +44,10 @@ interface ApiQuestion {
 
 function AdminEditExamPage() {
   const { id } = useParams<{ id: string }>();
+=======
+function AdminEditExamPage() {
+  const { id } = useParams();
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
   const { token, user } = useAuth();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -46,11 +55,19 @@ function AdminEditExamPage() {
   const [allowMultiple, setAllowMultiple] = useState(true);
   const [startAt, setStartAt] = useState("");
   const [endAt, setEndAt] = useState("");
+<<<<<<< HEAD
   const [questions, setQuestions] = useState<QuestionInput[]>([]);
   const [assignedOnly, setAssignedOnly] = useState(false);
   const [usersLoading, setUsersLoading] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [assignedUserIds, setAssignedUserIds] = useState<number[]>([]);
+=======
+  const [questions, setQuestions] = useState([]);
+  const [assignedOnly, setAssignedOnly] = useState(false);
+  const [usersLoading, setUsersLoading] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [assignedUserIds, setAssignedUserIds] = useState([]);
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -66,6 +83,7 @@ function AdminEditExamPage() {
       return;
     }
     const load = async () => {
+<<<<<<< HEAD
       if (!id) return;
       try {
         const exam = (await api.getExam(id, token)) as {
@@ -77,6 +95,10 @@ function AdminEditExamPage() {
           end_at?: string;
           questions: ApiQuestion[];
         };
+=======
+      try {
+        const exam = await api.getExam(id, token);
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
         setTitle(exam.title);
         setDescription(exam.description || "");
         setAllowMultiple(exam.allow_multiple_attempts);
@@ -90,7 +112,11 @@ function AdminEditExamPage() {
             option_b: q.option_b,
             option_c: q.option_c,
             option_d: q.option_d,
+<<<<<<< HEAD
             correct_options: [],
+=======
+            correct_options: [], // correct options are not exposed in exam payload for security; admin must re-set if needed
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
             question_image: q.question_image || "",
             option_a_image: q.option_a_image || "",
             option_b_image: q.option_b_image || "",
@@ -99,7 +125,11 @@ function AdminEditExamPage() {
           }))
         );
       } catch (e) {
+<<<<<<< HEAD
         setError((e as Error).message || "Failed to load exam");
+=======
+        setError(e.message || "Failed to load exam");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
       } finally {
         setLoading(false);
       }
@@ -111,14 +141,22 @@ function AdminEditExamPage() {
     if (!token) return;
     setUsersLoading(true);
     try {
+<<<<<<< HEAD
       const data = (await api.listUsers(token)) as User[];
+=======
+      const data = await api.listUsers(token);
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
       setUsers(data.filter((u) => !u.is_admin));
     } finally {
       setUsersLoading(false);
     }
   };
 
+<<<<<<< HEAD
   const updateQuestion = (index: number, field: string, value: string | string[]) => {
+=======
+  const updateQuestion = (index, field, value) => {
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     setQuestions((prev) => prev.map((q, i) => (i === index ? { ...q, [field]: value } : q)));
   };
 
@@ -141,6 +179,7 @@ function AdminEditExamPage() {
     ]);
   };
 
+<<<<<<< HEAD
   const removeQuestion = (index: number) => {
     setQuestions((prev) => prev.filter((_, i) => i !== index));
   };
@@ -148,6 +187,14 @@ function AdminEditExamPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!id || !token) return;
+=======
+  const removeQuestion = (index) => {
+    setQuestions((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     setSaving(true);
     setError("");
     setSuccess("");
@@ -162,11 +209,19 @@ function AdminEditExamPage() {
         assigned_only: assignedOnly,
         assigned_user_ids: assignedOnly ? assignedUserIds : null,
       };
+<<<<<<< HEAD
       const exam = (await api.updateExam(id, payload, token)) as { id: number };
       setSuccess("Exam updated successfully.");
       navigate(`/exams/${exam.id}`);
     } catch (err) {
       setError((err as Error).message || "Failed to update exam.");
+=======
+      const exam = await api.updateExam(id, payload, token);
+      setSuccess("Exam updated successfully.");
+      navigate(`/exams/${exam.id}`);
+    } catch (err) {
+      setError(err.message || "Failed to update exam.");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     } finally {
       setSaving(false);
     }
@@ -324,7 +379,11 @@ function AdminEditExamPage() {
                       <span className="option-label">{key}</span>
                       <input
                         className="form-input"
+<<<<<<< HEAD
                         value={q[`option_${key.toLowerCase()}` as keyof QuestionInput] as string}
+=======
+                        value={q[`option_${key.toLowerCase()}`]}
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
                         onChange={(e) =>
                           updateQuestion(index, `option_${key.toLowerCase()}`, e.target.value)
                         }
@@ -375,7 +434,11 @@ function AdminEditExamPage() {
                       <span>Image for option {key} (optional)</span>
                       <input
                         className="form-input"
+<<<<<<< HEAD
                         value={(q[`option_${key.toLowerCase()}_image` as keyof QuestionInput] as string) || ""}
+=======
+                        value={q[`option_${key.toLowerCase()}_image`] || ""}
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
                         onChange={(e) =>
                           updateQuestion(index, `option_${key.toLowerCase()}_image`, e.target.value)
                         }
@@ -406,3 +469,10 @@ function AdminEditExamPage() {
 }
 
 export default AdminEditExamPage;
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a

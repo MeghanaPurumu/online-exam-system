@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -6,6 +7,13 @@ interface LayoutProps {
 }
 
 function Layout({ children }: LayoutProps) {
+=======
+import React from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
   const { token, user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -75,3 +83,10 @@ function Layout({ children }: LayoutProps) {
 }
 
 export default Layout;
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a

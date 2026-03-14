@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
+=======
+import React, { useEffect, useState } from "react";
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../api/client";
@@ -24,6 +28,7 @@ ChartJS.register(
   Legend
 );
 
+<<<<<<< HEAD
 interface ProfileStats {
   total_exams_attempted: number;
   total_score: number;
@@ -37,6 +42,14 @@ function ProfilePage() {
   const [stats, setStats] = useState<ProfileStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+=======
+const ProfilePage: React.FC = () => {
+  const { token } = useAuth();
+  const navigate = useNavigate();
+  const [stats, setStats] = useState<any | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 
   useEffect(() => {
     if (!token) {
@@ -45,10 +58,17 @@ function ProfilePage() {
     }
     const load = async () => {
       try {
+<<<<<<< HEAD
         const data = (await api.getProfile(token)) as ProfileStats;
         setStats(data);
       } catch (err) {
         setError((err as Error).message || "Unable to load profile");
+=======
+        const data = await api.getProfile(token);
+        setStats(data);
+      } catch (err) {
+        setError(err.message || "Unable to load profile");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
       } finally {
         setLoading(false);
       }
@@ -167,3 +187,10 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a

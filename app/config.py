@@ -9,6 +9,13 @@ try:
 except ModuleNotFoundError:
     from pydantic import BaseSettings
 
+<<<<<<< HEAD
+=======
+from dotenv import load_dotenv
+
+load_dotenv()
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 
 class Settings(BaseSettings):
     app_name: str = "Xam Mate"

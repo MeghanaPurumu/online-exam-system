@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
+=======
+import React, { useEffect, useState } from "react";
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../api/client";
 
+<<<<<<< HEAD
 interface ReviewQuestion {
   question_id: number;
   text: string;
@@ -26,6 +31,13 @@ function ExamReviewPage() {
   const { token } = useAuth();
   const navigate = useNavigate();
   const [review, setReview] = useState<ReviewData | null>(null);
+=======
+function ExamReviewPage() {
+  const { id } = useParams();
+  const { token } = useAuth();
+  const navigate = useNavigate();
+  const [review, setReview] = useState(null);
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -35,12 +47,20 @@ function ExamReviewPage() {
       return;
     }
     const load = async () => {
+<<<<<<< HEAD
       if (!id) return;
       try {
         const data = (await api.reviewExam(id, token)) as ReviewData;
         setReview(data);
       } catch (err) {
         setError((err as Error).message || "Unable to load review");
+=======
+      try {
+        const data = await api.reviewExam(id, token);
+        setReview(data);
+      } catch (err) {
+        setError(err.message || "Unable to load review");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
       } finally {
         setLoading(false);
       }
@@ -50,7 +70,11 @@ function ExamReviewPage() {
 
   if (!token) return null;
 
+<<<<<<< HEAD
   const isCorrect = (q: ReviewQuestion) => {
+=======
+  const isCorrect = (q) => {
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     const selected = new Set(q.selected_options || []);
     const correct = new Set(q.correct_options || []);
     return selected.size > 0 && selected.size === correct.size && [...selected].every((v) => correct.has(v));
@@ -135,3 +159,10 @@ function ExamReviewPage() {
 }
 
 export default ExamReviewPage;
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a

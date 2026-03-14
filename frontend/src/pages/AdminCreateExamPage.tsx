@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import { useState } from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../api/client";
 
+<<<<<<< HEAD
 interface QuestionInput {
   text: string;
   option_a: string;
@@ -18,6 +23,9 @@ interface QuestionInput {
 }
 
 function emptyQuestion(): QuestionInput {
+=======
+function emptyQuestion() {
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
   return {
     text: "",
     option_a: "",
@@ -33,6 +41,7 @@ function emptyQuestion(): QuestionInput {
   };
 }
 
+<<<<<<< HEAD
 interface User {
   id: number;
   email: string;
@@ -40,6 +49,8 @@ interface User {
   [key: string]: unknown;
 }
 
+=======
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 function AdminCreateExamPage() {
   const { token, user } = useAuth();
   const navigate = useNavigate();
@@ -48,16 +59,28 @@ function AdminCreateExamPage() {
   const [allowMultiple, setAllowMultiple] = useState(true);
   const [startAt, setStartAt] = useState("");
   const [endAt, setEndAt] = useState("");
+<<<<<<< HEAD
   const [questions, setQuestions] = useState<QuestionInput[]>([emptyQuestion()]);
   const [assignedOnly, setAssignedOnly] = useState(false);
   const [usersLoading, setUsersLoading] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [assignedUserIds, setAssignedUserIds] = useState<number[]>([]);
+=======
+  const [questions, setQuestions] = useState([emptyQuestion()]);
+  const [assignedOnly, setAssignedOnly] = useState(false);
+  const [usersLoading, setUsersLoading] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [assignedUserIds, setAssignedUserIds] = useState([]);
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+<<<<<<< HEAD
   const handleImageUpload = (questionIndex: number, field: string, event: React.ChangeEvent<HTMLInputElement>) => {
+=======
+  const handleImageUpload = (questionIndex, field, event) => {
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     const file = event.target.files && event.target.files[0];
     if (!file) return;
     const reader = new FileReader();
@@ -68,6 +91,10 @@ function AdminCreateExamPage() {
   };
 
   if (!token) {
+<<<<<<< HEAD
+=======
+    // simple redirect hint; real auth for admin is controlled by backend
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     navigate("/login");
   }
   if (user && !user.is_admin) {
@@ -78,14 +105,22 @@ function AdminCreateExamPage() {
     if (!token) return;
     setUsersLoading(true);
     try {
+<<<<<<< HEAD
       const data = (await api.listUsers(token)) as User[];
+=======
+      const data = await api.listUsers(token);
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
       setUsers(data.filter((u) => !u.is_admin));
     } finally {
       setUsersLoading(false);
     }
   };
 
+<<<<<<< HEAD
   const updateQuestion = (index: number, field: string, value: string | string[]) => {
+=======
+  const updateQuestion = (index, field, value) => {
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     setQuestions((prev) =>
       prev.map((q, i) => (i === index ? { ...q, [field]: value } : q))
     );
@@ -95,6 +130,7 @@ function AdminCreateExamPage() {
     setQuestions((prev) => [...prev, emptyQuestion()]);
   };
 
+<<<<<<< HEAD
   const removeQuestion = (index: number) => {
     setQuestions((prev) => prev.filter((_, i) => i !== index));
   };
@@ -102,6 +138,14 @@ function AdminCreateExamPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!token) return;
+=======
+  const removeQuestion = (index) => {
+    setQuestions((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     setLoading(true);
     setError("");
     setSuccess("");
@@ -116,11 +160,19 @@ function AdminCreateExamPage() {
         assigned_only: assignedOnly,
         assigned_user_ids: assignedOnly ? assignedUserIds : null,
       };
+<<<<<<< HEAD
       const exam = (await api.createExam(payload, token)) as { id: number };
       setSuccess("Exam created successfully.");
       navigate(`/exams/${exam.id}`);
     } catch (err) {
       setError((err as Error).message || "Failed to create exam. Ensure you are logged in as an admin.");
+=======
+      const exam = await api.createExam(payload, token);
+      setSuccess("Exam created successfully.");
+      navigate(`/exams/${exam.id}`);
+    } catch (err) {
+      setError(err.message || "Failed to create exam. Ensure you are logged in as an admin.");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     } finally {
       setLoading(false);
     }
@@ -289,7 +341,11 @@ function AdminCreateExamPage() {
                     <span className="option-label">{key}</span>
                     <input
                       className="form-input"
+<<<<<<< HEAD
                       value={q[`option_${key.toLowerCase()}` as keyof QuestionInput] as string}
+=======
+                      value={q[`option_${key.toLowerCase()}`]}
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
                       onChange={(e) =>
                         updateQuestion(index, `option_${key.toLowerCase()}`, e.target.value)
                       }
@@ -303,9 +359,15 @@ function AdminCreateExamPage() {
                           handleImageUpload(index, `option_${key.toLowerCase()}_image`, e)
                         }
                       />
+<<<<<<< HEAD
                       {(q[`option_${key.toLowerCase()}_image` as keyof QuestionInput] as string) && (
                         <img
                           src={q[`option_${key.toLowerCase()}_image` as keyof QuestionInput] as string}
+=======
+                      {q[`option_${key.toLowerCase()}_image`] && (
+                        <img
+                          src={q[`option_${key.toLowerCase()}_image`]}
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
                           alt={`Option ${key}`}
                           className="inline-image-preview"
                         />
@@ -362,3 +424,10 @@ function AdminCreateExamPage() {
 }
 
 export default AdminCreateExamPage;
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a

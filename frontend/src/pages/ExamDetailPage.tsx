@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
+=======
+import React, { useEffect, useState } from "react";
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../api/client";
 
+<<<<<<< HEAD
 interface Question {
   id: number;
   text: string;
@@ -44,6 +49,18 @@ function ExamDetailPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState<SubmissionResult | null>(null);
+=======
+function ExamDetailPage() {
+  const { id } = useParams();
+  const { token } = useAuth();
+  const navigate = useNavigate();
+  const [exam, setExam] = useState(null);
+  const [answers, setAnswers] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [result, setResult] = useState(null);
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 
   useEffect(() => {
     if (!token) {
@@ -51,14 +68,23 @@ function ExamDetailPage() {
       return;
     }
     const load = async () => {
+<<<<<<< HEAD
       if (!id) return;
       try {
         const data = (await api.takeExam(id, token)) as Exam;
+=======
+      try {
+        const data = await api.takeExam(id, token);
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
         setExam(data);
         setAnswers({});
         setResult(null);
       } catch (err) {
+<<<<<<< HEAD
         setError((err as Error).message || "Unable to load exam");
+=======
+        setError(err.message || "Unable to load exam");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
       } finally {
         setLoading(false);
       }
@@ -68,10 +94,17 @@ function ExamDetailPage() {
 
   if (!token) return null;
 
+<<<<<<< HEAD
   const handleChange = (questionId: number, value: string, multi = false) => {
     if (multi) {
       setAnswers((prev) => {
         const current = (prev[questionId] || []) as string[];
+=======
+  const handleChange = (questionId, value, multi = false) => {
+    if (multi) {
+      setAnswers((prev) => {
+        const current = prev[questionId] || [];
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
         const exists = current.includes(value);
         const next = exists ? current.filter((v) => v !== value) : [...current, value];
         return { ...prev, [questionId]: next };
@@ -81,15 +114,25 @@ function ExamDetailPage() {
     }
   };
 
+<<<<<<< HEAD
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!exam || !id) return;
+=======
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!exam) return;
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     setSubmitting(true);
     setError("");
     try {
       const payload = {
         answers: exam.questions
+<<<<<<< HEAD
           .filter((q) => answers[q.id] && (Array.isArray(answers[q.id]) ? (answers[q.id] as string[]).length > 0 : true))
+=======
+          .filter((q) => answers[q.id] && (Array.isArray(answers[q.id]) ? answers[q.id].length > 0 : true))
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
           .map((q) => {
             const value = answers[q.id];
             return {
@@ -98,10 +141,17 @@ function ExamDetailPage() {
             };
           }),
       };
+<<<<<<< HEAD
       const submission = (await api.submitExam(exam.id, payload, token)) as SubmissionResult;
       setResult(submission);
     } catch (err) {
       setError((err as Error).message || "Submission failed");
+=======
+      const submission = await api.submitExam(exam.id, payload, token);
+      setResult(submission);
+    } catch (err) {
+      setError(err.message || "Submission failed");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     } finally {
       setSubmitting(false);
     }
@@ -194,3 +244,10 @@ function ExamDetailPage() {
 }
 
 export default ExamDetailPage;
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a

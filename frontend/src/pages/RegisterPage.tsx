@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import { useState } from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../api/client";
 
+<<<<<<< HEAD
 function RegisterPage() {
   const { token } = useAuth();
   const navigate = useNavigate();
@@ -11,6 +16,16 @@ function RegisterPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+=======
+const RegisterPage: React.FC = () => {
+  const { token } = useAuth();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState<string>("");
+  const [fullName, setFullName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 
   if (token) {
     return <Navigate to="/exams" replace />;
@@ -24,7 +39,11 @@ function RegisterPage() {
       await api.register({ email, full_name: fullName, password });
       navigate("/login");
     } catch (err) {
+<<<<<<< HEAD
       setError((err as Error).message || "Registration failed");
+=======
+      setError(err.message || "Registration failed");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     } finally {
       setLoading(false);
     }
@@ -41,7 +60,11 @@ function RegisterPage() {
             className="form-input"
             type="text"
             value={fullName}
+<<<<<<< HEAD
             onChange={(e) => setFullName(e.target.value)}
+=======
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFullName(e.target.value)}
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
             required
             placeholder="Alex Johnson"
           />
@@ -52,7 +75,11 @@ function RegisterPage() {
             className="form-input"
             type="email"
             value={email}
+<<<<<<< HEAD
             onChange={(e) => setEmail(e.target.value)}
+=======
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
             required
             placeholder="you@example.com"
           />
@@ -63,7 +90,11 @@ function RegisterPage() {
             className="form-input"
             type="password"
             value={password}
+<<<<<<< HEAD
             onChange={(e) => setPassword(e.target.value)}
+=======
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
             required
             placeholder="Create a strong password"
           />
@@ -81,3 +112,10 @@ function RegisterPage() {
 }
 
 export default RegisterPage;
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a

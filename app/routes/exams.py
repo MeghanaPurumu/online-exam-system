@@ -63,6 +63,7 @@ def list_exam_status(
     return exam_service.get_exam_status_for_user(db, student_id=current_user.id)
 
 
+<<<<<<< HEAD
 @router.get("/{exam_id}", response_model=ExamOut)
 def get_exam(
     exam_id: int,
@@ -73,13 +74,19 @@ def get_exam(
     return exam
 
 
+=======
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 @router.get("/{exam_id}/take", response_model=ExamTakeOut)
 def take_exam(
     exam_id: int,
     db: Session = Depends(database.get_db),
     current_user: User = Depends(get_current_user),
 ):
+<<<<<<< HEAD
     exam, attempt_number = exam_service.take_exam(db, exam_id, student_id=current_user.id)
+=======
+    exam, attempt_number = exam_service.take_exam(db, exam_id, student_id=current_user.id, is_admin=current_user.is_admin)
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     setattr(exam, "attempt_number", attempt_number)
     return exam
 
@@ -91,7 +98,11 @@ def submit_exam(
     db: Session = Depends(database.get_db),
     current_user: User = Depends(get_current_user),
 ):
+<<<<<<< HEAD
     submission = exam_service.submit_exam(db, exam_id, student_id=current_user.id, payload=payload)
+=======
+    submission = exam_service.submit_exam(db, exam_id, student_id=current_user.id, payload=payload, is_admin=current_user.is_admin)
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     return submission
 
 
@@ -110,7 +121,11 @@ def review_submission(
     db: Session = Depends(database.get_db),
     current_user: User = Depends(get_current_user),
 ):
+<<<<<<< HEAD
     return exam_service.get_submission_review(db, exam_id, student_id=current_user.id)
+=======
+    return exam_service.get_submission_review(db, exam_id, student_id=current_user.id, is_admin=current_user.is_admin)
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 
 
 @router.get("/{exam_id}/attempts", response_model=list[ExamAttemptEntry])
@@ -121,3 +136,16 @@ def get_exam_attempts(
 ):
     return exam_service.get_exam_attempts(db, exam_id)
 
+<<<<<<< HEAD
+=======
+
+@router.get("/{exam_id}", response_model=ExamOut)
+def get_exam(
+    exam_id: int,
+    db: Session = Depends(database.get_db),
+    current_user: User = Depends(get_current_user),
+):
+    exam = exam_service.get_exam(db, exam_id, current_user_id=current_user.id, is_admin=current_user.is_admin)
+    return exam
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a

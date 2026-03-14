@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import React from "react";
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import LoginPage from "./pages/LoginPage";
@@ -13,7 +17,11 @@ import AdminUsersPage from "./pages/AdminUsersPage";
 import ProfilePage from "./pages/ProfilePage";
 import { AuthProvider } from "./context/AuthContext";
 
+<<<<<<< HEAD
 function App() {
+=======
+const App: React.FC = () => {
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
   return (
     <AuthProvider>
       <Layout>
@@ -37,3 +45,10 @@ function App() {
 }
 
 export default App;
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a

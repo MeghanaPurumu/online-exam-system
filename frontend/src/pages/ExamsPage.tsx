@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
+=======
+import React, { useEffect, useState } from "react";
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../api/client";
 
+<<<<<<< HEAD
 interface Exam {
   id: number;
   title: string;
@@ -22,6 +27,15 @@ function ExamsPage() {
   const [adminExams, setAdminExams] = useState<Exam[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+=======
+const ExamsPage: React.FC = () => {
+  const { token, user } = useAuth();
+  const navigate = useNavigate();
+  const [exams, setExams] = useState<any[]>([]);
+  const [adminExams, setAdminExams] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 
   useEffect(() => {
     if (!token) {
@@ -32,16 +46,28 @@ function ExamsPage() {
     const load = async () => {
       try {
         if (user?.is_admin) {
+<<<<<<< HEAD
           const data = (await api.listExams(token)) as Exam[];
           setAdminExams(data);
           setExams([]);
         } else {
           const data = (await api.listExamStatus(token)) as Exam[];
+=======
+          const data = await api.listExams(token);
+          setAdminExams(data);
+          setExams([]);
+        } else {
+          const data = await api.listExamStatus(token);
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
           setExams(data);
           setAdminExams([]);
         }
       } catch (err) {
+<<<<<<< HEAD
         setError((err as Error).message || "Unable to load exams");
+=======
+        setError(err.message || "Unable to load exams");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
       } finally {
         setLoading(false);
       }
@@ -55,7 +81,11 @@ function ExamsPage() {
   const upcoming = exams.filter((e) => e.status === "upcoming");
   const overdue = exams.filter((e) => e.status === "overdue");
 
+<<<<<<< HEAD
   const renderAdminExamCard = (exam: Exam) => {
+=======
+  const renderAdminExamCard = (exam) => {
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     const start = exam.start_at ? new Date(exam.start_at) : null;
     const end = exam.end_at ? new Date(exam.end_at) : null;
 
@@ -110,7 +140,11 @@ function ExamsPage() {
     );
   };
 
+<<<<<<< HEAD
   const renderExamCard = (exam: Exam, type: string) => {
+=======
+  const renderExamCard = (exam, type) => {
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     const start = exam.start_at ? new Date(exam.start_at) : null;
     const end = exam.end_at ? new Date(exam.end_at) : null;
 
@@ -293,3 +327,9 @@ function ExamsPage() {
 }
 
 export default ExamsPage;
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a

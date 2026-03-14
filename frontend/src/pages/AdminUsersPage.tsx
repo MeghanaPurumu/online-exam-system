@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import { useEffect, useMemo, useState } from "react";
+=======
+import React, { useEffect, useMemo, useState } from "react";
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/client";
 import { useAuth } from "../context/AuthContext";
 
+<<<<<<< HEAD
 interface User {
   id: number;
   email: string;
@@ -18,6 +23,14 @@ function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [busyUserId, setBusyUserId] = useState<number | null>(null);
+=======
+function AdminUsersPage() {
+  const { token, user } = useAuth();
+  const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [busyUserId, setBusyUserId] = useState(null);
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
   const [error, setError] = useState("");
 
   const isAdmin = Boolean(user?.is_admin);
@@ -35,10 +48,17 @@ function AdminUsersPage() {
       setError("");
       setLoading(true);
       try {
+<<<<<<< HEAD
         const data = (await api.listUsers(token)) as User[];
         setUsers(data);
       } catch (e) {
         setError((e as Error).message || "Failed to load users");
+=======
+        const data = await api.listUsers(token);
+        setUsers(data);
+      } catch (e) {
+        setError(e.message || "Failed to load users");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
       } finally {
         setLoading(false);
       }
@@ -48,6 +68,7 @@ function AdminUsersPage() {
 
   const rows = useMemo(() => users, [users]);
 
+<<<<<<< HEAD
   const toggleBlock = async (u: User) => {
     if (!token) return;
     setBusyUserId(u.id);
@@ -57,6 +78,16 @@ function AdminUsersPage() {
       setUsers((prev) => prev.map((x) => (x.id === updated.id ? updated : x)));
     } catch (e) {
       setError((e as Error).message || "Action failed");
+=======
+  const toggleBlock = async (u) => {
+    setBusyUserId(u.id);
+    setError("");
+    try {
+      const updated = u.is_active ? await api.blockUser(u.id, token) : await api.unblockUser(u.id, token);
+      setUsers((prev) => prev.map((x) => (x.id === updated.id ? updated : x)));
+    } catch (e) {
+      setError(e.message || "Action failed");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     } finally {
       setBusyUserId(null);
     }
@@ -126,3 +157,10 @@ function AdminUsersPage() {
 }
 
 export default AdminUsersPage;
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a

@@ -1,5 +1,17 @@
 from datetime import datetime, timezone
 import hashlib
+<<<<<<< HEAD
+=======
+
+
+def _as_utc(dt: datetime | None) -> datetime | None:
+    """Normalize datetime to UTC for comparison. If naive, assume UTC."""
+    if dt is None:
+        return None
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc)
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 import random
 
 from fastapi import HTTPException, status
@@ -60,11 +72,19 @@ def update_exam(db: Session, exam_id: int, payload: ExamUpdate, current_admin_id
     return updated
 
 
+<<<<<<< HEAD
 def _ensure_exam_visible(db: Session, exam_id: int, student_id: int):
     exam = exam_repository.get_exam(db, exam_id)
     if not exam:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exam not found")
     if exam.assigned_only and not exam_repository.is_user_assigned_to_exam(db, exam_id, student_id):
+=======
+def _ensure_exam_visible(db: Session, exam_id: int, student_id: int, is_admin: bool = False):
+    exam = exam_repository.get_exam(db, exam_id)
+    if not exam:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exam not found")
+    if not is_admin and exam.assigned_only and not exam_repository.is_user_assigned_to_exam(db, exam_id, student_id):
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="You are not assigned to this exam")
     return exam
 
@@ -78,8 +98,13 @@ def _shuffle_questions_for_user_attempt(exam_id: int, student_id: int, attempt_n
     return qs
 
 
+<<<<<<< HEAD
 def take_exam(db: Session, exam_id: int, student_id: int):
     exam = _ensure_exam_visible(db, exam_id, student_id)
+=======
+def take_exam(db: Session, exam_id: int, student_id: int, is_admin: bool = False):
+    exam = _ensure_exam_visible(db, exam_id, student_id, is_admin=is_admin)
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 
     existing_count = exam_repository.count_submissions_for_student_exam(db, exam_id, student_id)
     if not exam.allow_multiple_attempts and existing_count > 0:
@@ -92,8 +117,13 @@ def take_exam(db: Session, exam_id: int, student_id: int):
     return exam, attempt_number
 
 
+<<<<<<< HEAD
 def submit_exam(db: Session, exam_id: int, student_id: int, payload: SubmissionCreate):
     exam = _ensure_exam_visible(db, exam_id, student_id)
+=======
+def submit_exam(db: Session, exam_id: int, student_id: int, payload: SubmissionCreate, is_admin: bool = False):
+    exam = _ensure_exam_visible(db, exam_id, student_id, is_admin=is_admin)
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 
     if not exam.allow_multiple_attempts:
         existing = exam_repository.get_student_submission_for_exam(db, exam_id, student_id)
@@ -203,7 +233,12 @@ def get_exam_status_for_user(db: Session, student_id: int) -> list[ExamStatusEnt
         else:
             last_score = None
             last_attempt_at = None
+<<<<<<< HEAD
             if exam.end_at and now > exam.end_at:
+=======
+            end_at_utc = _as_utc(exam.end_at)
+            if end_at_utc and now > end_at_utc:
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
                 status = "overdue"
             else:
                 status = "upcoming"
@@ -261,7 +296,12 @@ def get_profile_stats(db: Session, student_id: int) -> ProfileStats:
     )
 
 
+<<<<<<< HEAD
 def get_submission_review(db: Session, exam_id: int, student_id: int) -> SubmissionReview:
+=======
+def get_submission_review(db: Session, exam_id: int, student_id: int, is_admin: bool = False) -> SubmissionReview:
+    _ensure_exam_visible(db, exam_id, student_id, is_admin=is_admin)
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
     submission = exam_repository.get_latest_submission_for_exam(db, exam_id, student_id)
     if not submission:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No submission found for this exam")

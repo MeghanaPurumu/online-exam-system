@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
+=======
+import React, { useEffect, useState } from "react";
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../api/client";
 
+<<<<<<< HEAD
 interface AttemptRow {
   user_id: number;
   email: string;
@@ -19,6 +24,13 @@ function AdminExamAttemptsPage() {
   const { token, user } = useAuth();
   const navigate = useNavigate();
   const [rows, setRows] = useState<AttemptRow[]>([]);
+=======
+function AdminExamAttemptsPage() {
+  const { id } = useParams();
+  const { token, user } = useAuth();
+  const navigate = useNavigate();
+  const [rows, setRows] = useState([]);
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -32,12 +44,20 @@ function AdminExamAttemptsPage() {
       return;
     }
     const load = async () => {
+<<<<<<< HEAD
       if (!id) return;
       try {
         const data = (await api.getExamAttempts(id, token)) as AttemptRow[];
         setRows(data);
       } catch (e) {
         setError((e as Error).message || "Failed to load attempts");
+=======
+      try {
+        const data = await api.getExamAttempts(id, token);
+        setRows(data);
+      } catch (e) {
+        setError(e.message || "Failed to load attempts");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
       } finally {
         setLoading(false);
       }
@@ -102,3 +122,10 @@ function AdminExamAttemptsPage() {
 }
 
 export default AdminExamAttemptsPage;
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
+=======
+import React, { useEffect, useState } from "react";
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../api/client";
@@ -14,6 +18,7 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
+<<<<<<< HEAD
 interface LeaderboardEntry {
   student_id: number;
   student_email?: string;
@@ -26,6 +31,13 @@ function LeaderboardPage() {
   const { token } = useAuth();
   const navigate = useNavigate();
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
+=======
+function LeaderboardPage() {
+  const { id } = useParams();
+  const { token } = useAuth();
+  const navigate = useNavigate();
+  const [entries, setEntries] = useState([]);
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -35,12 +47,20 @@ function LeaderboardPage() {
       return;
     }
     const load = async () => {
+<<<<<<< HEAD
       if (!id) return;
       try {
         const data = (await api.getLeaderboard(id, token)) as LeaderboardEntry[];
         setEntries(data);
       } catch (err) {
         setError((err as Error).message || "Unable to load leaderboard");
+=======
+      try {
+        const data = await api.getLeaderboard(id, token);
+        setEntries(data);
+      } catch (err) {
+        setError(err.message || "Unable to load leaderboard");
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
       } finally {
         setLoading(false);
       }
@@ -138,3 +158,10 @@ function LeaderboardPage() {
 }
 
 export default LeaderboardPage;
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> a00c66199331bfd4797fbcfdc023931434c4210a
