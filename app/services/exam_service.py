@@ -1,5 +1,14 @@
 from datetime import datetime, timezone
 import hashlib
+
+
+def _as_utc(dt: datetime | None) -> datetime | None:
+    """Normalize datetime to UTC for comparison. If naive, assume UTC."""
+    if dt is None:
+        return None
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc)
 import random
 
 from fastapi import HTTPException, status
@@ -203,7 +212,8 @@ def get_exam_status_for_user(db: Session, student_id: int) -> list[ExamStatusEnt
         else:
             last_score = None
             last_attempt_at = None
-            if exam.end_at and now > exam.end_at:
+            end_at_utc = _as_utc(exam.end_at)
+            if end_at_utc and now > end_at_utc:
                 status = "overdue"
             else:
                 status = "upcoming"

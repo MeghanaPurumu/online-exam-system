@@ -1,22 +1,22 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
-import { api } from "../api/client.js";
+import { useAuth } from "../context/AuthContext";
+import { api } from "../api/client";
 
-function RegisterPage() {
+const RegisterPage: React.FC = () => {
   const { token } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [fullName, setFullName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   if (token) {
     return <Navigate to="/exams" replace />;
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -41,7 +41,7 @@ function RegisterPage() {
             className="form-input"
             type="text"
             value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFullName(e.target.value)}
             required
             placeholder="Alex Johnson"
           />
@@ -52,7 +52,7 @@ function RegisterPage() {
             className="form-input"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             required
             placeholder="you@example.com"
           />
@@ -63,7 +63,7 @@ function RegisterPage() {
             className="form-input"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             required
             placeholder="Create a strong password"
           />
@@ -81,4 +81,7 @@ function RegisterPage() {
 }
 
 export default RegisterPage;
+
+
+
 

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
-import { api } from "../api/client.js";
+import { useAuth } from "../context/AuthContext";
+import { api } from "../api/client";
 import { Doughnut, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -24,12 +24,12 @@ ChartJS.register(
   Legend
 );
 
-function ProfilePage() {
+const ProfilePage: React.FC = () => {
   const { token } = useAuth();
   const navigate = useNavigate();
-  const [stats, setStats] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [stats, setStats] = useState<any | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     if (!token) {
@@ -160,4 +160,7 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+
+
+
 

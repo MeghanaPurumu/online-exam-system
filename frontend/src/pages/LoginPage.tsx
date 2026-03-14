@@ -1,21 +1,21 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
-import { api } from "../api/client.js";
+import { useAuth } from "../context/AuthContext";
+import { api } from "../api/client";
 
-function LoginPage() {
+const LoginPage: React.FC = () => {
   const { token, login } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   if (token) {
     return <Navigate to="/exams" replace />;
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -34,27 +34,29 @@ function LoginPage() {
     <div className="auth-card">
       <h1 className="auth-title">Welcome back</h1>
       <p className="auth-subtitle">Sign in to access your exams.</p>
-      <form onSubmit={handleSubmit} className="form">
+      <form onSubmit={handleSubmit} className="form" autoComplete="off">
+        <input type="text" style={{ display: 'none' }} autoComplete="username" />
         <label className="form-label">
           Email
           <input
             className="form-input"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             required
-            placeholder="you@example.com"
+            autoComplete="username"
           />
         </label>
+        <input type="password" style={{ display: 'none' }} autoComplete="current-password" />
         <label className="form-label">
           Password
           <input
             className="form-input"
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             required
-            placeholder="••••••••"
+            autoComplete="current-password"
           />
         </label>
         {error && <p className="form-error">{error}</p>}
@@ -70,4 +72,7 @@ function LoginPage() {
 }
 
 export default LoginPage;
+
+
+
 

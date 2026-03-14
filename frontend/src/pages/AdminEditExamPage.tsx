@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
-import { api } from "../api/client.js";
+import { useAuth } from "../context/AuthContext";
+import { api } from "../api/client";
 
 function AdminEditExamPage() {
   const { id } = useParams();
@@ -362,4 +362,7 @@ function AdminEditExamPage() {
 }
 
 export default AdminEditExamPage;
+
+
+
 

@@ -1,13 +1,26 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { api } from "../api/client.js";
+import { api } from "../api/client";
 
-const AuthContext = createContext(null);
+interface User {
+  id: number;
+  username: string;
+  is_admin: boolean;
+}
+
+interface AuthContextType {
+  token: string | null;
+  user: User | null;
+  login: (token: string) => void;
+  logout: () => void;
+}
+
+const AuthContext = createContext<AuthContextType | null>(null);
 
 const STORAGE_KEY = "xam_mate_token";
 
-export function AuthProvider({ children }) {
-  const [token, setToken] = useState(() => localStorage.getItem(STORAGE_KEY));
-  const [user, setUser] = useState(null); // we could decode JWT later if needed
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [token, setToken] = useState<string | null>(() => localStorage.getItem(STORAGE_KEY));
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     if (token) {
@@ -40,7 +53,7 @@ export function AuthProvider({ children }) {
     };
   }, [token]);
 
-  const login = (newToken) => {
+  const login = (newToken: string) => {
     setToken(newToken);
   };
 
@@ -54,9 +67,12 @@ export function AuthProvider({ children }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export function useAuth() {
+export function useAuth(): AuthContextType {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error("useAuth must be used within AuthProvider");
   return ctx;
 }
+
+
+
 

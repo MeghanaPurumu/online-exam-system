@@ -1,19 +1,20 @@
+import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
-import RegisterPage from "./pages/RegisterPage.jsx";
-import ExamsPage from "./pages/ExamsPage.jsx";
-import ExamDetailPage from "./pages/ExamDetailPage.jsx";
-import LeaderboardPage from "./pages/LeaderboardPage.jsx";
-import ExamReviewPage from "./pages/ExamReviewPage.jsx";
-import AdminCreateExamPage from "./pages/AdminCreateExamPage.jsx";
-import AdminEditExamPage from "./pages/AdminEditExamPage.jsx";
-import AdminExamAttemptsPage from "./pages/AdminExamAttemptsPage.jsx";
-import AdminUsersPage from "./pages/AdminUsersPage.jsx";
-import ProfilePage from "./pages/ProfilePage.jsx";
-import { AuthProvider } from "./context/AuthContext.jsx";
+import Layout from "./components/Layout";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import ExamsPage from "./pages/ExamsPage";
+import ExamDetailPage from "./pages/ExamDetailPage";
+import LeaderboardPage from "./pages/LeaderboardPage";
+import ExamReviewPage from "./pages/ExamReviewPage";
+import AdminCreateExamPage from "./pages/AdminCreateExamPage";
+import AdminEditExamPage from "./pages/AdminEditExamPage";
+import AdminExamAttemptsPage from "./pages/AdminExamAttemptsPage";
+import AdminUsersPage from "./pages/AdminUsersPage";
+import ProfilePage from "./pages/ProfilePage";
+import { AuthProvider } from "./context/AuthContext";
 
-function App() {
+const App: React.FC = () => {
   return (
     <AuthProvider>
       <Layout>
@@ -37,4 +38,7 @@ function App() {
 }
 
 export default App;
+
+
+
 

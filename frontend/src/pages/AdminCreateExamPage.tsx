@@ -1,7 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
-import { api } from "../api/client.js";
+import { useAuth } from "../context/AuthContext";
+import { api } from "../api/client";
 
 function emptyQuestion() {
   return {
@@ -341,4 +341,7 @@ function AdminCreateExamPage() {
 }
 
 export default AdminCreateExamPage;
+
+
+
 

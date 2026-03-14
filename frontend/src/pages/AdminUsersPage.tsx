@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api } from "../api/client.js";
-import { useAuth } from "../context/AuthContext.jsx";
+import { api } from "../api/client";
+import { useAuth } from "../context/AuthContext";
 
 function AdminUsersPage() {
   const { token, user } = useAuth();
@@ -116,4 +116,7 @@ function AdminUsersPage() {
 }
 
 export default AdminUsersPage;
+
+
+
 

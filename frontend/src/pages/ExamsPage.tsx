@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext.jsx";
-import { api } from "../api/client.js";
+import { useAuth } from "../context/AuthContext";
+import { api } from "../api/client";
 
-function ExamsPage() {
+const ExamsPage: React.FC = () => {
   const { token, user } = useAuth();
   const navigate = useNavigate();
-  const [exams, setExams] = useState([]);
-  const [adminExams, setAdminExams] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [exams, setExams] = useState<any[]>([]);
+  const [adminExams, setAdminExams] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     if (!token) {
@@ -281,3 +281,6 @@ function ExamsPage() {
 }
 
 export default ExamsPage;
+
+
+
